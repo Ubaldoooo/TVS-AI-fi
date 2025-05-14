@@ -1,0 +1,275 @@
+/* Estilos CSS Mejorados para T.V.S */
+:root {
+  --bg-dark-main: #101820;
+  --bg-dark-secondary: #1f2b38;
+  --bg-chat: #17212b;
+  --text-light: #e0f7fa;
+  --accent-color: #00bcd4;
+  --user-bubble-color: #651fff;
+  --aura-bubble-color: #00acc1;
+  --button-hover-color: #0097a7;
+  --topic-chip-bg: #00bcd4;
+  --topic-chip-hover-bg: #008ba3;
+  --topic-chip-selected-bg: #ffe082;
+  --topic-chip-selected-text: #101820;
+  --suggestion-card-bg: #00e5ff;
+  --suggestion-text-color: #002f36;
+  --suggestion-button-bg: #004d40;
+  --suggestion-button-text: #e0f7fa;
+  --suggestion-button-hover-bg: #00796b;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-dark-main);
+  color: var(--text-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+.logo-colegio {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 100px; /* Ajusta según tamaño deseado */
+    height: auto;
+    z-index: 1000; /* Para que esté por encima de otros elementos */
+}
+
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #00bcd4 0%, #00838f 40%, #00acc1 100%);
+  background-size: 400% 400%;
+  animation: gradientAnimation 18s ease infinite;
+  z-index: -1;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.chat-container {
+  width: 95%;
+  max-width: 800px;
+  height: 92vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-chat);
+  border-radius: 18px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  border: 1px solid var(--bg-dark-secondary);
+}
+
+.chat-header {
+  padding: 18px;
+  background-color: var(--bg-dark-secondary);
+  color: var(--text-light);
+  text-align: center;
+  font-size: 1.6em;
+  font-weight: 700;
+  border-bottom: 1px solid var(--bg-dark-secondary);
+  letter-spacing: 1px;
+  text-shadow: 1px 1px #000000;
+}
+
+.topic-selector {
+  padding: 12px 18px;
+  background-color: var(--bg-dark-secondary);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--bg-chat);
+}
+
+.topic-chip {
+  padding: 8px 16px;
+  background-color: var(--topic-chip-bg);
+  color: var(--text-light);
+  border-radius: 20px;
+  font-size: 0.95em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.topic-chip:hover:not(.selected) {
+  background-color: var(--topic-chip-hover-bg);
+  transform: scale(1.05);
+}
+
+.topic-chip.selected {
+  background-color: var(--topic-chip-selected-bg);
+  color: var(--topic-chip-selected-text);
+  font-weight: 600;
+  border: 2px solid var(--accent-color);
+}
+
+.chat-box {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-chat) var(--bg-dark-secondary);
+}
+
+.chat-box::-webkit-scrollbar { width: 10px; }
+.chat-box::-webkit-scrollbar-track { background: var(--bg-dark-secondary); border-radius: 10px; }
+.chat-box::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 10px; }
+
+.message {
+  max-width: 85%;
+  margin-bottom: 16px;
+  padding: 16px 20px;
+  border-radius: 22px;
+  line-height: 1.6;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: messageFadeIn 0.6s ease forwards;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+@keyframes messageFadeIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message.user {
+  align-self: flex-end;
+  background-color: var(--user-bubble-color);
+  color: #ffffff;
+  border-bottom-right-radius: 8px;
+}
+
+.message.aura {
+  align-self: flex-start;
+  background-color: var(--aura-bubble-color);
+  color: var(--text-light);
+  border-bottom-left-radius: 8px;
+}
+
+.initial-message {
+  animation-delay: 0.5s;
+}
+
+/* Tarjeta de sugerencia */
+.suggestion-card {
+  max-width: 85%;
+  padding: 20px;
+  border-radius: 22px;
+  background-color: var(--suggestion-card-bg);
+  color: var(--suggestion-text-color);
+  align-self: flex-start;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  animation: messageFadeIn 0.6s ease forwards;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.suggestion-card h4 {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: 700;
+  text-shadow: 1px 1px rgba(0,0,0,0.2);
+}
+
+.suggestion-card p {
+  margin: 0;
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+
+.suggestion-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.suggestion-action-button {
+  padding: 10px 18px;
+  background-color: var(--suggestion-button-bg);
+  color: var(--suggestion-button-text);
+  border: none;
+  border-radius: 20px;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.suggestion-action-button:hover {
+  background-color: var(--suggestion-button-hover-bg);
+  transform: translateY(-2px);
+}
+
+.chat-input-area {
+  display: flex;
+  padding: 18px;
+  background-color: var(--bg-dark-secondary);
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid var(--bg-chat);
+}
+
+.chat-input-area input[type="text"] {
+  flex-grow: 1;
+  padding: 16px 22px;
+  border-radius: 30px;
+  background-color: var(--bg-dark-main);
+  color: var(--text-light);
+  font-size: 1em;
+  border: none;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0,188,212,0.4);
+  transition: box-shadow 0.3s ease;
+}
+
+.chat-input-area input[type="text"]:focus {
+  box-shadow: 0 0 12px rgba(0,188,212,0.6);
+}
+
+.chat-input-area button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-color);
+  color: var(--bg-dark-main);
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.chat-input-area button:hover {
+  background-color: var(--button-hover-color);
+  transform: scale(1.05);
+}
+
+#voiceButton {
+  background-color: var(--user-bubble-color);
+  color: white;
+}
+
+#voiceButton.recording .material-symbols-outlined {
+  color: #ff4d4d;
+  transform: scale(1.2);
+}
